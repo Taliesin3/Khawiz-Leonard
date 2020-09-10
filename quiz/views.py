@@ -4,20 +4,20 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 from .utils import lookup
-from .models import Team
-
-
+from .models import Team, Conference, Division
 
 # Create your views here.
 def index(request):
     teams = Team.objects.order_by("fullName")
     return render(request, "index.html", {
-        "teams": teams
+        "teams": Team.objects.all()
     })
 
 def teamQuiz(request):   
     # Get team information
-    divisions = ["Atlantic", "Pacific", "Central"]
+    divisions = list(Division.objects.values_list("name", flat=True))
+    for i in range(len(divisions)):
+        divisions[i] = divisions[i].capitalize()
     divName = "division"
     team = "Hawks"
 

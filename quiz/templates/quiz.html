@@ -6,20 +6,27 @@
 {% block body %}
     <div class="container text-center">
         <h1>{{team}} Quiz</h1><br/>
-    {% for entry in questionList %} 
+    {% for entry in questionList %}
+    {% with question_num=forloop.counter %} 
         <div 
-            id="question{{forloop.counter}}" 
+            id="question{{question_num}}" 
             class="mx-auto text-center quiz-question"
         >
             <h3>{{ entry.question }}</h1>
             <div class="answers">
-                <p>A: {{entry.answers.a}}</p>
-                <p>B: {{entry.answers.b}}</p>
-                <p>C: {{entry.answers.c}}</p>
+                {% for letter, answer in entry.answers.items %}
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="question{{question_num}}" value="{{ letter }}" id="question{{question_num}} answer{{ letter }}">
+                    <label class="form-check-label" for="question{{ question_num }} answer{{ letter }}">
+                    {{ letter }}: {{ answer }}
+                    </label>
+                </div>
+                {% endfor %}
             </div>
             <br/>
             Correct answer: {{entry.correctAnswer}}
         </div>
+    {% endwith %}
     {% endfor %}
         <div class="mx-auto text-center">
             <button id="previous" class="btn btn-primary" disabled="true">Previous Question</button>
@@ -29,7 +36,7 @@
     </div>
     
     <script>
-        // define the length of the questions list
+        // define length of questions list
         // so it can be used in make_quiz.js
         var qListLength = {{questionList|length}}
     </script>
