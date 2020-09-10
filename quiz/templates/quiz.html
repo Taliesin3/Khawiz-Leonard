@@ -1,0 +1,70 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <div class="container text-center">
+        <h1>{{team}} Quiz</h1><br/>
+    {% for entry in questionList %} 
+        <div 
+            id="question{{forloop.counter}}" 
+            class="mx-auto text-center quiz-question"
+        >
+            <h3>{{ entry.question }}</h1>
+            <div class="answers">
+                <p>A: {{entry.answers.a}}</p>
+                <p>B: {{entry.answers.b}}</p>
+                <p>C: {{entry.answers.c}}</p>
+            </div>
+            <br/>
+            Correct answer: {{entry.correctAnswer}}
+        </div>
+    {% endfor %}
+        <div class="mx-auto text-center">
+            <button id="previous" class="btn btn-primary" disabled="true">Previous Question</button>
+            <button id="next" class="btn btn-primary">Next Question</button>
+            <button id="submit" class="btn btn-primary" disabled="true">Submit Quiz</button>
+        </div>
+    </div>
+    <script>
+        "use strict";
+        document.addEventListener("DOMContentLoaded", function() {
+            // Count which question is displayed
+            var counter = 1;
+            console.log(counter)
+
+            // Display the first question
+            document.getElementById(`question${counter}`).style.display = "block";
+            
+            // When next is clicked, display next question
+            document.getElementById("next").onclick = function() {
+                counter++;
+                document.querySelectorAll(".quiz-question").forEach(function(div) {
+                    div.style.display = "none";
+                })
+                
+                document.getElementById(`question${counter}`).style.display = "block";
+                document.getElementById("previous").disabled = false;
+
+                if (counter === {{questionList|length}}) {
+                    document.getElementById("next").disabled = true;
+                    document.getElementById("submit").disabled = false;
+                }
+            }
+
+            // When previous is clicked, display previous question
+            document.getElementById("previous").onclick = function() {
+                counter--;
+                document.querySelectorAll(".quiz-question").forEach(function(div) {
+                    div.style.display = "none";
+                })
+                document.getElementById(`question${counter}`).style.display = "block";
+                document.getElementById("submit").disabled = true;
+                document.getElementById("next").disabled = false;
+
+                if (counter === 1) {
+                    document.getElementById("previous").disabled = true;
+                }
+            }
+              
+        });
+    </script>
+{% endblock %}

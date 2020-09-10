@@ -1,0 +1,16 @@
+#nav-title {
+    margin-right: 50px;
+}
+
+#submit {
+    
+}
+
+.quiz-question {
+    display: none;
+    height: 250px;
+}
+
+.active {
+    display: inline-block;
+}

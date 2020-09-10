@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="container">
+    <div class="mx-auto col-6 ">
+        <form action="{% url 'quiz:teamQuiz' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group text-center">
+                <label for="quiz-team"><h1>Team Quiz</h1></label>
+                <select class="form-control" id="quiz-team">
+                {% for team in teams %}
+                    <option>{{ team.fullName }}</option>
+                {% endfor %}
+                </select>
+                <br/>
+                <input class="btn btn-primary" type="submit" value="Quiz!">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
