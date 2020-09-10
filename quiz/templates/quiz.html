@@ -1,5 +1,8 @@
 {% extends 'layout.html' %}
 
+{% block head %}
+{% endblock %}
+
 {% block body %}
     <div class="container text-center">
         <h1>{{team}} Quiz</h1><br/>
@@ -24,47 +27,12 @@
             <button id="submit" class="btn btn-primary" disabled="true">Submit Quiz</button>
         </div>
     </div>
+    
     <script>
-        "use strict";
-        document.addEventListener("DOMContentLoaded", function() {
-            // Count which question is displayed
-            var counter = 1;
-            console.log(counter)
-
-            // Display the first question
-            document.getElementById(`question${counter}`).style.display = "block";
-            
-            // When next is clicked, display next question
-            document.getElementById("next").onclick = function() {
-                counter++;
-                document.querySelectorAll(".quiz-question").forEach(function(div) {
-                    div.style.display = "none";
-                })
-                
-                document.getElementById(`question${counter}`).style.display = "block";
-                document.getElementById("previous").disabled = false;
-
-                if (counter === {{questionList|length}}) {
-                    document.getElementById("next").disabled = true;
-                    document.getElementById("submit").disabled = false;
-                }
-            }
-
-            // When previous is clicked, display previous question
-            document.getElementById("previous").onclick = function() {
-                counter--;
-                document.querySelectorAll(".quiz-question").forEach(function(div) {
-                    div.style.display = "none";
-                })
-                document.getElementById(`question${counter}`).style.display = "block";
-                document.getElementById("submit").disabled = true;
-                document.getElementById("next").disabled = false;
-
-                if (counter === 1) {
-                    document.getElementById("previous").disabled = true;
-                }
-            }
-              
-        });
+        // define the length of the questions list
+        // so it can be used in make_quiz.js
+        var qListLength = {{questionList|length}}
     </script>
 {% endblock %}
+
+
