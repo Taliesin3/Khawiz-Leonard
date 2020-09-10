@@ -3,27 +3,33 @@ from django.db import models
 # Create your models here.
 class Conference(models.Model):
     CONFERENCE_CHOICES = [
-        ("W", "West"),
-        ("E", "East")
+        ("west", "West"),
+        ("east", "East")
     ]
     name = models.CharField(
-        max_length=4, choices=CONFERENCE_CHOICES, blank=True
+        max_length=64, choices=CONFERENCE_CHOICES
     )
+
+    def __str__(self):
+        return f"{self.name}"
 
 class Division(models.Model):
     DIVISION_CHOICES = [
-        ("AT", "Atlantic"),
-        ("CE", "Central"),
-        ("SE", "Southeast"),
-        ("NW", "Northwest"),
-        ("PA", "Pacific"),
-        ("SW", "Southwest")
+        ("atlantic", "Atlantic"),
+        ("central", "Central"),
+        ("southeast", "Southeast"),
+        ("northwest", "Northwest"),
+        ("pacific", "Pacific"),
+        ("southwest", "Southwest")
     ]
 
-    name = models.CharField(max_length=10, choices=DIVISION_CHOICES, blank=True)
+    name = models.CharField(max_length=64, choices=DIVISION_CHOICES)
     conf = models.ForeignKey(
         Conference, on_delete=models.PROTECT, related_name="divisions"
     )
+
+    def __str__(self):
+        return f"{self.name}"
 
 
 class Team(models.Model):
