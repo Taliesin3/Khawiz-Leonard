@@ -80,7 +80,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 numCorrect++;
             }
         }
-        console.log(numCorrect);
 
         // generate scores page
         $("#quiz-container").append( 

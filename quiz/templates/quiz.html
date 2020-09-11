@@ -4,8 +4,8 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container text-center">
-        <h1>{{team}} Quiz</h1><br/>
+    <div class="container text-center full-container">
+        <h1>{{team.fullName}} Quiz <img width="50" src="{{ team.logo }}"/></h1><br/>
         <div id="quiz-container">
         {% for entry in questionList %}
         {% with question_num=forloop.counter %} 
@@ -33,7 +33,16 @@
             <button id="next" class="btn btn-primary">Next Question</button>
             <button id="submit" class="btn btn-primary" disabled="true">Submit Quiz</button>
             <br/>
-            <button onclick="window.location.href='{% url 'quiz:teamQuiz' %}'" id="tryAgain" class="btn btn-primary">Try Again!</button>
+            <form action="{% url 'quiz:teamQuiz' %}" method="POST">
+                {% csrf_token %}
+                <select hidden="True" id="quiz-team" name="quiz-team">
+                    <option>{{ team.fullName }}</option>
+                </select>
+                <br/>
+                <input class="btn btn-primary" type="submit" id="tryAgain" value="Try Again!">
+            </form>
+        </div>
+            
         </div>
     </div>
     

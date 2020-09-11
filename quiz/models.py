@@ -49,7 +49,7 @@ class Team(models.Model):
     
 
     def __str__(self):
-        return f"{self.teamId}: {self.fullName}"
+        return f"{self.id}: {self.fullName}"
 
 # class Question(models.Model):
     

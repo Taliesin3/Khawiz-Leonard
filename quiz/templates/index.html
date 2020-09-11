@@ -3,12 +3,12 @@
 {% block body %}
 
 <div class="container">
-    <div class="mx-auto col-6 ">
+    <div class="mx-auto col-6 full-container">
         <form action="{% url 'quiz:teamQuiz' %}" method="POST">
             {% csrf_token %}
             <div class="form-group text-center">
                 <label for="quiz-team"><h1>Team Quiz</h1></label>
-                <select class="form-control" id="quiz-team">
+                <select class="form-control" id="quiz-team" name="quiz-team">
                 {% for team in teams %}
                     <option>{{ team.fullName }}</option>
                 {% endfor %}

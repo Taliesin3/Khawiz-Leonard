@@ -11,9 +11,13 @@
     height: 100px;
 }
 
+.full-container {
+    margin-top: 50px;
+}
+
 .quiz-question {
     display: none;
-    height: 200px;
+    height: 150px;
 }
 
 .active {

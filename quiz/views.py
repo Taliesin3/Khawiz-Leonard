@@ -15,16 +15,18 @@ def index(request):
 
 def teamQuiz(request):   
     # Get team information
-    divisions = list(Division.objects.values_list("name", flat=True))
-    for i in range(len(divisions)):
-        divisions[i] = divisions[i].capitalize()
-    divName = "division"
-    team = "Hawks"
+    team = Team.objects.get(fullName=request.POST["quiz-team"])
+    divName = str(team.div)
+    
+    divisions = Division.objects.exclude(name=divName).values_list("name", flat=True)
+    print(divisions)
+    print(divisions[0].capitalize())
 
     # Contact API for quiz data
     quiz_type = "team"
-    teamId = 1  # TODO: use teamId provided by form, hardcoded for testing purposes
-    # dataset = lookup(quiz_type, teamId)
+    teamId = team.teamId  # TODO: use teamId provided by form, hardcoded for testing purposes
+    dataset = lookup(quiz_type, teamId)
+    '''
     dataset = {     # TODO: re-implement lookup function in the line above, hardcoded dataset for testing purposes
         'api': {'status': 200, 'message': 'GET players/teamId/1', 'results': 45, 'filters': ['playerId', 'teamId', 'league', 'country', 'lastName', 'firstName'], 'players': [
             {'firstName': "DeAndre'", 'lastName': 'Bembry', 'teamId': '1', 'yearsPro': '3', 'collegeName': "St. Joseph's (PA)", 'country': 'USA', 'playerId': '49', 'dateOfBirth': '1994-07-04', 'affiliation': "St. Joseph's (PA)/USA", 'startNba': '2016', 'heightInMeters': '1.96', 'weightInKilograms': '95.3', 'leagues': {'standard': {'jersey': '95', 'active': '1', 'pos': 'G-F'}}}, 
@@ -39,6 +41,7 @@ def teamQuiz(request):
             {'firstName': 'Sedrick', 'lastName': 'Barefield', 'teamId': '1', 'yearsPro': '0', 'collegeName': 'Utah', 'country': 'USA', 'playerId': '2374', 'dateOfBirth': '1996-11-18', 'affiliation': 'University of Utah/USA', 'startNba': '0', 'heightInMeters': '1.88', 'weightInKilograms': '86.2', 'leagues': {'vegas': {'jersey': '63', 'active': '1', 'pos': 'G'}}}
         ]}
     }
+    '''
 
     # check that lookup returned data
     if not dataset:
@@ -57,11 +60,11 @@ def teamQuiz(request):
     # TODO: add code to incorrect answers to exclude them picking the same value as the correct answer by chance
     questions = [
     {
-        "question": f"What division do the {team} play in?",
+        "question": f"What division do the {team.fullName} play in?",
         "answers": {
-        "a": f"{divisions[2]}",
-        "b": f"{divName}",
-        "c": f"{divisions[1]}"
+        "a": f"{divisions[2].capitalize()}",
+        "b": f"{divName.capitalize()}",
+        "c": f"{divisions[1].capitalize()}"
         },
         "correctAnswer": "b"
     }, 
