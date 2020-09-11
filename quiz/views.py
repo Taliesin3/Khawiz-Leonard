@@ -60,7 +60,7 @@ def teamQuiz(request):
         "question": f"What division do the {team} play in?",
         "answers": {
         "a": f"{divisions[2]}",
-        "b": f"{divisions[0]}",
+        "b": f"{divName}",
         "c": f"{divisions[1]}"
         },
         "correctAnswer": "b"
@@ -122,10 +122,14 @@ def teamQuiz(request):
     ]
     # randomise questions
     questionList = random.sample(questions, len(questions))
-    
+    correct_answers = []
+    for question in questionList:
+        correct_answers.append(question["correctAnswer"])
+    print(correct_answers)
     
     return render(request, "quiz.html", {
         "questionList": questionList,
-        "team": team
+        "team": team,
+        "correct_answers": json.dumps(correct_answers)
     })
 

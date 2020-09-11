@@ -6,39 +6,44 @@
 {% block body %}
     <div class="container text-center">
         <h1>{{team}} Quiz</h1><br/>
-    {% for entry in questionList %}
-    {% with question_num=forloop.counter %} 
-        <div 
-            id="question{{question_num}}" 
-            class="mx-auto text-center quiz-question"
-        >
-            <h3>{{ entry.question }}</h1>
-            <div class="answers">
-                {% for letter, answer in entry.answers.items %}
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="question{{question_num}}" value="{{ letter }}" id="question{{question_num}} answer{{ letter }}">
-                    <label class="form-check-label" for="question{{ question_num }} answer{{ letter }}">
-                    {{ letter }}: {{ answer }}
-                    </label>
+        <div id="quiz-container">
+        {% for entry in questionList %}
+        {% with question_num=forloop.counter %} 
+            <div 
+                id="question{{question_num}}" 
+                class="mx-auto text-center quiz-question"
+            >
+                <h3>{{ entry.question }}</h1>
+                <div class="container" id="quiz-answers">
+                    {% for letter, answer in entry.answers.items %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question{{question_num}}" value="{{ letter }}" id="question{{question_num}} answer{{ letter }}">
+                        <label class="form-check-label" for="question{{ question_num }} answer{{ letter }}">
+                        {{ letter }}: {{ answer }}
+                        </label>
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
+                <br/>
+                Correct answer: {{entry.correctAnswer}}
             </div>
-            <br/>
-            Correct answer: {{entry.correctAnswer}}
+        {% endwith %}
+        {% endfor %}
+        <div id="results"></div>
         </div>
-    {% endwith %}
-    {% endfor %}
         <div class="mx-auto text-center">
             <button id="previous" class="btn btn-primary" disabled="true">Previous Question</button>
             <button id="next" class="btn btn-primary">Next Question</button>
             <button id="submit" class="btn btn-primary" disabled="true">Submit Quiz</button>
         </div>
+        {{correctAnswers}}
     </div>
     
     <script>
         // define length of questions list
         // so it can be used in make_quiz.js
-        var qListLength = {{questionList|length}}
+        var qListLength = parseInt("{{ questionList|length }}");
+        var correctAnswers = {{ correct_answers|safe }};
     </script>
 {% endblock %}
 
