@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Display the first question
     // TODO: change all style.display to classList.add/remove
-    document.getElementById(`question${questionNumber}`).style.display = "block";
+    $(`#question${questionNumber}`).show();
     
     // When next is clicked
     document.getElementById("next").onclick = function() {
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.querySelectorAll(".quiz-question").forEach(function(div) {
             div.style.display = "none";
         })
-        document.getElementById(`question${questionNumber}`).style.display = "block";
+        $(`#question${questionNumber}`).show();
         document.getElementById("previous").disabled = false;
 
         // enable/disable relevant buttons when at the last question
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.querySelectorAll(".quiz-question").forEach(function(div) {
             div.style.display = "none";
         })
-        document.getElementById(`question${questionNumber}`).style.display = "block";
+        $(`#question${questionNumber}`).show();
         document.getElementById("submit").disabled = true;
         document.getElementById("next").disabled = false;
 
@@ -83,11 +83,11 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log(numCorrect);
 
         // generate scores page
-        document.querySelector("#results").innerHTML = 
-            `<h3>You got ${numCorrect} out of ${qListLength} correct!</h3>`;
+        $("#quiz-container").append( 
+            `<div id="results"><h3>You got ${numCorrect} out of ${qListLength} correct!</h3></div>`
+        );
 
         // create try again button
-
+        $("#tryAgain").show();
     }
-        
 });

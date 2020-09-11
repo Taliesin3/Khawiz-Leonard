@@ -24,19 +24,17 @@
                     </div>
                     {% endfor %}
                 </div>
-                <br/>
-                Correct answer: {{entry.correctAnswer}}
             </div>
         {% endwith %}
         {% endfor %}
-        <div id="results"></div>
         </div>
-        <div class="mx-auto text-center">
+        <div id="buttons" class="mx-auto text-center">
             <button id="previous" class="btn btn-primary" disabled="true">Previous Question</button>
             <button id="next" class="btn btn-primary">Next Question</button>
             <button id="submit" class="btn btn-primary" disabled="true">Submit Quiz</button>
+            <br/>
+            <button onclick="window.location.href='{% url 'quiz:teamQuiz' %}'" id="tryAgain" class="btn btn-primary">Try Again!</button>
         </div>
-        {{correctAnswers}}
     </div>
     
     <script>

@@ -2,8 +2,13 @@
     margin-right: 50px;
 }
 
-#submit {
-    
+#tryAgain {
+    display: none;
+    margin-top: 10px;
+}
+
+#results {
+    height: 100px;
 }
 
 .quiz-question {

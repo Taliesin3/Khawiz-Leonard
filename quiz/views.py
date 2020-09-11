@@ -125,7 +125,6 @@ def teamQuiz(request):
     correct_answers = []
     for question in questionList:
         correct_answers.append(question["correctAnswer"])
-    print(correct_answers)
     
     return render(request, "quiz.html", {
         "questionList": questionList,
