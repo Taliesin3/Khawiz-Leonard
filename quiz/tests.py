@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 
 from .models import Team, Division, Conference
 
@@ -35,7 +35,7 @@ class TeamTestCase(TestCase):
             logo="",
             shortName="BBB",
         )
-    
+
     def test_is_valid_team(self):
         t1 = Team.objects.get(shortName="AAA")
         self.assertTrue(t1.is_valid_team())
@@ -43,4 +43,8 @@ class TeamTestCase(TestCase):
         t2 = Team.objects.get(shortName="BBB")
         self.assertFalse(t2.is_valid_team())
 
-
+    def test_index(self):
+        c = Client()
+        response = c.get("/")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["teams"]), 2)

@@ -48,10 +48,7 @@ class Team(models.Model):
         return f"{self.id}: {self.fullName}"
     
     def is_valid_team(self):
-        print(self.allStar >= 0)
-        print(self.teamId >= 0)
-        print(self.fullName != None)
-        return self.allStar >= 0 and self.teamId >= 0 and self.fullName != None
+        return self.allStar >= 0 and self.teamId >= 0 and self.fullName is not None
 
 # class Question(models.Model):
     

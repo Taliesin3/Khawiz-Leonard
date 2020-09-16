@@ -8,16 +8,15 @@ from .models import Team, Conference, Division
 
 # Create your views here.
 def index(request):
-    # Get the name of all teams 
-    print(Team.objects.all())
+    # Get the name of all teams
     teams = Team.objects.order_by("fullName")
-    
-    return render(request, "index.html", {
+    context = {
         "teams": teams
-    })
+    }
+    return render(request, "index.html", context)
     
 
-def teamQuiz(request):   
+def team_quiz(request):   
     # Get team information
     team = Team.objects.get(fullName=request.POST["quiz-team"])
     divName = str(team.div)
