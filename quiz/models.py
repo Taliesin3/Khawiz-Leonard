@@ -40,16 +40,18 @@ class Team(models.Model):
     logo = models.URLField()
     shortName = models.CharField(max_length=10)
     allStar = models.IntegerField()
-    conf = models.ForeignKey(
-        Conference, on_delete=models.PROTECT, related_name="teams"
-    )
     div = models.ForeignKey(
         Division, on_delete=models.PROTECT, related_name="teams"
     )
     
-
     def __str__(self):
         return f"{self.id}: {self.fullName}"
+    
+    def is_valid_team(self):
+        print(self.allStar >= 0)
+        print(self.teamId >= 0)
+        print(self.fullName != None)
+        return self.allStar >= 0 and self.teamId >= 0 and self.fullName != None
 
 # class Question(models.Model):
     

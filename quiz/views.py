@@ -8,19 +8,22 @@ from .models import Team, Conference, Division
 
 # Create your views here.
 def index(request):
+    # Get the name of all teams 
+    print(Team.objects.all())
     teams = Team.objects.order_by("fullName")
+    
     return render(request, "index.html", {
-        "teams": Team.objects.all()
+        "teams": teams
     })
+    
 
 def teamQuiz(request):   
     # Get team information
     team = Team.objects.get(fullName=request.POST["quiz-team"])
     divName = str(team.div)
     
+    # Get list of Divisions, except for the chosen team's division
     divisions = Division.objects.exclude(name=divName).values_list("name", flat=True)
-    print(divisions)
-    print(divisions[0].capitalize())
 
     # Contact API for quiz data
     quiz_type = "team"
