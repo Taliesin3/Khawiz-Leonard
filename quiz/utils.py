@@ -14,7 +14,6 @@ def lookup(quiz_type, *args):       # Optional arguments specify which team/play
     if api_counter > 50:
         return False        # TODO: returning False might not be the best way to signal a problem
 
-    # TODO: separate API info into .env file
     else:
         url = f"https://api-nba-v1.p.rapidapi.com/players/teamId/{args[0]}"
         headers = {
