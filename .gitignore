@@ -1,3 +1,4 @@
 .env
 Khawiz/.env
 quiz/.env
+db.sqlite3
