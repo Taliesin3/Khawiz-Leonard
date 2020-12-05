@@ -1,4 +1,5 @@
 import os
+import dj_database_url
 import django_heroku
 from dotenv import load_dotenv
 load_dotenv()
@@ -112,4 +113,5 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 django_heroku.settings(locals())
