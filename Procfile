@@ -1,1 +1,1 @@
-web: gunicorn Khawiz.wsgi --log-file -
+web: gunicorn Khawiz.wsgi
