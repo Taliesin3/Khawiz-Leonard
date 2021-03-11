@@ -4,6 +4,8 @@ quiz/.env
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
+Khawiz/__pycache__/
+quiz/__pycache__/
 *.py[cod]
 *$py.class
 
