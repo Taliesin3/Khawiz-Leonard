@@ -16,6 +16,17 @@
                 <br/>
                 <input class="btn btn-primary" type="submit" value="Quiz!">
             </div>
+            <br />
+            <div class="form-group text-center">
+                <label for="quiz-player"><h1>Player Quiz</h1></label>
+                <select class="form-control" id="quiz-player" name="quiz-player">
+                {% for player in players %}
+                    <option>{{ player }}</option>
+                {% endfor %}
+                </select>
+                <br/>
+                <input class="btn btn-primary" type="submit" value="Quiz!">
+            </div>
         </form>
     </div>
 </div>

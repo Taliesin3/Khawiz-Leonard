@@ -10,8 +10,10 @@ from .models import Team, Conference, Division
 def index(request):
     # Get the name of all teams
     teams = Team.objects.order_by("fullName")
+    players = ["LeBron James", "Kawhi Leonard", "Giannis Antetokounmpo", "Stephen Curry", "Luka Doncic"]
     context = {
-        "teams": teams
+        "teams": teams,
+        "players": players
     }
     return render(request, "index.html", context)
     
