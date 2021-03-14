@@ -6,11 +6,12 @@ from django.http import HttpResponse
 from .utils import lookup
 from .models import Team, Conference, Division
 
+players = [{"name": "Giannis Antetokounmpo", "id": 20}, {"name": "Stephen Curry", "id": 124}, {"name": "Luka Doncic", "id": 963}, {"name": "LeBron James", "id": 265}, {"name": "Kawhi Leonard", "id": 314}]
+
 # Create your views here.
 def index(request):
     # Get the name of all teams
     teams = Team.objects.order_by("fullName")
-    players = ["LeBron James", "Kawhi Leonard", "Giannis Antetokounmpo", "Stephen Curry", "Luka Doncic"]
     context = {
         "teams": teams,
         "players": players
@@ -20,7 +21,7 @@ def index(request):
 
 def team_quiz(request):   
     # Get team information
-    team = Team.objects.get(fullName=request.POST["quiz-team"])
+    team = Team.objects.get(id=request.POST["quiz-team"])
     divName = str(team.div)
     
     # Get list of Divisions, except for the chosen team's division
@@ -28,7 +29,7 @@ def team_quiz(request):
 
     # Contact API for quiz data
     quiz_type = "team"
-    teamId = team.teamId
+    teamId = request.POST["quiz-team"]
     dataset = lookup(quiz_type, teamId)
 
     # check that lookup returned data
@@ -117,8 +118,64 @@ def team_quiz(request):
         correct_answers.append(question["correctAnswer"])
     
     return render(request, "quiz.html", {
+        "quiz_type": quiz_type,
         "questionList": questionList,
+        "title": team.fullName,
         "team": team,
+        "correct_answers": json.dumps(correct_answers)
+    })
+
+
+def player_quiz(request):
+    print(f"request is {request.POST}")
+    # Contact API for quiz data
+    quiz_type = "player"
+    playerId = request.POST["quiz-player"]
+    dataset = lookup(quiz_type, playerId)
+
+    # check that lookup returned data
+    if not dataset:
+        return render(request, "apology.html")    
+
+    # extract player info from dataset
+    player = dataset["api"]["players"][0]
+
+    print(f"player is {player}")
+
+    # define questions
+    # TODO: exclude incorrect answers from picking the same value as the correct answer by chance
+    questions = [
+    {
+        "question": f"What country is {player['firstName']} from?",
+        "answers": {
+        "a": f"{player['country']}",
+        "b": f"",
+        "c": f""
+        },
+        "correctAnswer": "a"
+    },
+    {
+        "question": f"How tall is {player['firstName']}?",
+        "answers": {
+        "a": f"",
+        "b": f"",
+        "c": f"{player['heightInMeters']}"
+        },
+        "correctAnswer": "c"
+    },
+    
+    ]
+    # randomise questions
+    questionList = random.sample(questions, len(questions))
+    correct_answers = []
+    for question in questionList:
+        correct_answers.append(question["correctAnswer"])
+    
+    return render(request, "quiz.html", {
+        "quiz_type": quiz_type,
+        "questionList": questionList,
+        "title": f"{player['firstName']} {player['lastName']}",
+        "player": player,
         "correct_answers": json.dumps(correct_answers)
     })
 

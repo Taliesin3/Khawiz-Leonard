@@ -10,18 +10,23 @@
                 <label for="quiz-team"><h1>Team Quiz</h1></label>
                 <select class="form-control" id="quiz-team" name="quiz-team">
                 {% for team in teams %}
-                    <option>{{ team.fullName }}</option>
+                    <option value={{team.id}}>
+                        {{ team.fullName }} 
+                    </option>
                 {% endfor %}
                 </select>
                 <br/>
                 <input class="btn btn-primary" type="submit" value="Quiz!">
             </div>
-            <br />
+        </form>
+        <br />
+        <form action="{% url 'quiz:player_quiz' %}" method="POST">
+            {% csrf_token %}
             <div class="form-group text-center">
                 <label for="quiz-player"><h1>Player Quiz</h1></label>
                 <select class="form-control" id="quiz-player" name="quiz-player">
                 {% for player in players %}
-                    <option>{{ player }}</option>
+                    <option value={{player.id}}>{{ player.name }}</option>
                 {% endfor %}
                 </select>
                 <br/>

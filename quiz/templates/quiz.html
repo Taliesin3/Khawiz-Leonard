@@ -7,7 +7,7 @@
 
 {% block body %}
     <div class="container text-center full-container">
-        <h1><img width="50" src="{{ team.logo }}"/>{{team.fullName}} Quiz <img width="50" src="{{ team.logo }}"/></h1><br/>
+        <h1><img width="50" src="{{ team.logo }}"/> {{title}} Quiz <img width="50" src="{{ team.logo }}"/></h1><br/>
         <div id="quiz-container">
         {% for entry in questionList %}
         {% with question_num=forloop.counter %} 
@@ -38,7 +38,7 @@
             <form action="{% url 'quiz:team_quiz' %}" method="POST">
                 {% csrf_token %}
                 <select hidden="True" id="quiz-team" name="quiz-team">
-                    <option>{{ team.fullName }}</option>
+                    <option value={{team.id}}>{{ team.fullName }}</option>
                 </select>
                 <br/>
                 <input class="btn btn-primary" type="submit" id="tryAgain" value="Try Again!">

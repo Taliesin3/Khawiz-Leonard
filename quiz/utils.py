@@ -14,11 +14,21 @@ def lookup(quiz_type, *args):       # Optional arguments specify which team/play
     if api_counter > 50:
         return False        # TODO: returning False might not be the best way to signal a problem
 
-    else:
+    if quiz_type == "team":
         url = f"https://api-nba-v1.p.rapidapi.com/players/teamId/{args[0]}"
         headers = {
             'x-rapidapi-host': "api-nba-v1.p.rapidapi.com",
             'x-rapidapi-key': API_KEY
+        }
+        response = requests.request("GET", url, headers=headers)
+        api_counter += 1
+        return response.json()
+    
+    if quiz_type == "player":
+        url = f"https://api-nba-v1.p.rapidapi.com/players/playerId/{args[0]}"
+        headers = {
+            'x-rapidapi-key': API_KEY,
+            'x-rapidapi-host': "api-nba-v1.p.rapidapi.com"
         }
         response = requests.request("GET", url, headers=headers)
         api_counter += 1
