@@ -6,34 +6,21 @@
         <title>Khawiz Leonard</title>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/flatly/bootstrap.min.css" integrity="sha384-qF/QmIAj5ZaYFAeQcrQ6bfVMAh4zZlrGwTPY7T/M+iTTLJqJBJjwwnsE5Y0mV7QK" crossorigin="anonymous">
-        <link rel="stylesheet" href="{% static 'quiz/styles.css' %}">
+        <script src="{% static 'quiz/js/bootstrap.min.js' %}"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
         {% block head %}
         {% endblock %}
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <a class="navbar-brand" href="{% url 'quiz:index' %}" id="nav-title"><h1>Khawiz Leonard</h1><br/><h3>an NBA quiz site</h3></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <!--
-            <div class="collapse navbar-collapse" id="navbarColor01">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                  <a class="nav-link" href="#"><h4>Quizzes</h4></a>
-                </li>
-                
-                <li class="nav-item">
-                  <a class="nav-link" href="#"><h4>Profile</h4></a>
-                </li>
-                
-              </ul>
-            </div>
-            -->
-          </nav>
+          <img id="nba-logo" src="{% static 'images/nba-logo.jpg' %}" />
+          <a class="navbar-brand" href="{% url 'quiz:index' %}" id="nav-title"><h1>Khawiz Leonard</h1><br/><h3>an NBA quiz site</h3></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <img id="kawhi-logo" src="{% static 'images/kawhi-logo2.png' %}">
+        </nav>
         {% block body %}
         {% endblock %}
     </body>

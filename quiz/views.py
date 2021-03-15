@@ -157,12 +157,58 @@ def player_quiz(request):
     {
         "question": f"How tall is {player['firstName']}?",
         "answers": {
-        "a": f"",
-        "b": f"",
-        "c": f"{player['heightInMeters']}"
+        "a": f"{round(float(player['heightInMeters']) * 1.1, 2)}m",
+        "b": f"{round(float(player['heightInMeters']) * 0.9, 2)}m",
+        "c": f"{player['heightInMeters']}m"
         },
         "correctAnswer": "c"
     },
+    {
+        "question": f"What number does {player['firstName']} wear?",
+        "answers": {
+        "a": f"{int(player['leagues']['standard']['jersey']) + 5}",
+        "b": f"{int(player['leagues']['standard']['jersey']) - 3}",
+        "c": f"{player['leagues']['standard']['jersey']}"
+        },
+        "correctAnswer": "c"
+    },
+    {
+        "question": f"What year did {player['firstName']} start playing in the NBA?",
+        "answers": {
+        "a": f"{player['startNba']}",
+        "b": f"{int(player['startNba']) + 1}",
+        "c": f"{int(player['startNba']) - 1}"
+        },
+        "correctAnswer": "a"
+    },
+    {
+        "question": f"What does {player['firstName']} weigh?",
+        "answers": {
+        "a": f"{player['weightInKilograms']}kg",
+        "b": f"{round(float(player['weightInKilograms']) * 1.1, 1)}kg",
+        "c": f"{round(float(player['weightInKilograms']) * 0.9, 1)}kg"
+        },
+        "correctAnswer": "a"
+    },
+    {
+        "question": f"Where did {player['firstName']} play before the NBA?",
+        "answers": {
+        "a": f"",
+        "b": f"{player['collegeName']}",
+        "c": f""
+        },
+        "correctAnswer": "b"
+    },
+    {
+        "question": f"What year was {player['firstName']} born?",
+        "answers": {
+        "a": f"{player['dateOfBirth'][0:4]}",
+        "b": f"{int(player['dateOfBirth'][0:4]) + 2}",
+        "c": f"{int(player['dateOfBirth'][0:4] - 1)}"
+        },
+        "correctAnswer": "a"
+    },
+
     
     ]
     # randomise questions

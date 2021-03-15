@@ -35,7 +35,7 @@
             <button id="next" class="btn btn-primary">Next Question</button>
             <button id="submit" class="btn btn-primary" disabled="true">Submit Quiz</button>
             <br/>
-            <form action="{% url 'quiz:team_quiz' %}" method="POST">
+            <form action="{% url 'quiz:index' %}" method="POST">
                 {% csrf_token %}
                 <select hidden="True" id="quiz-team" name="quiz-team">
                     <option value={{team.id}}>{{ team.fullName }}</option>
