@@ -1,18 +1,26 @@
 import requests
 import os
+from datetime import date
 from dotenv import load_dotenv
 load_dotenv()
 
-api_counter = 0     # TODO: currently resets when server restarts. Maybe store in session or browser cache?
-API_KEY = os.getenv("API_KEY")
+TODAY = date.today().strftime("%d")
 
 # API call for team/player info
-def lookup(quiz_type, *args):       # Optional arguments specify which team/player etc.
+# Optional args specify which team/player etc.
+def lookup(quiz_type, *args):       
+    get_date = date.today().strftime("%d")
+    
+    if get_date != TODAY:
+        TODAY = get_date
+        os.environ["API_COUNT"] = 0
 
-    global api_counter
-    print(api_counter)
-    if api_counter > 50:
-        return False        # TODO: returning False might not be the best way to signal a problem
+    API_COUNT = os.environ.get("API_COUNT")
+    
+    # 100 API calls per day on free plan
+    if API_COUNT > 75:
+        print("Error: Daily API call limit exceeded, please try again tomorrow.")
+        return False
 
     if quiz_type == "team":
         url = f"https://api-nba-v1.p.rapidapi.com/players/teamId/{args[0]}"
@@ -21,7 +29,7 @@ def lookup(quiz_type, *args):       # Optional arguments specify which team/play
             'x-rapidapi-key': API_KEY
         }
         response = requests.request("GET", url, headers=headers)
-        api_counter += 1
+        os.environ["API_COUNT"] = API_COUNT + 1
         return response.json()
     
     if quiz_type == "player":
