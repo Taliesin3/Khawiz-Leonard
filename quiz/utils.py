@@ -21,6 +21,8 @@ def lookup(quiz_type, *args):
     if API_COUNT > 75:
         print("Error: Daily API call limit exceeded, please try again tomorrow.")
         return False
+    else:
+        API_KEY = os.environ.get("API_KEY")
 
     if quiz_type == "team":
         url = f"https://api-nba-v1.p.rapidapi.com/players/teamId/{args[0]}"
@@ -39,5 +41,5 @@ def lookup(quiz_type, *args):
             'x-rapidapi-host': "api-nba-v1.p.rapidapi.com"
         }
         response = requests.request("GET", url, headers=headers)
-        api_counter += 1
+        os.environ["API_COUNT"] = API_COUNT + 1
         return response.json()

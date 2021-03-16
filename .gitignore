@@ -72,11 +72,6 @@ cover/
 # Django stuff:
 *.log
 local_settings.py
-<<<<<<< HEAD
-=======
-db.sqlite3
-db.sqlite3-journal
->>>>>>> heroku
 
 # Flask stuff:
 instance/
@@ -152,8 +147,4 @@ dmypy.json
 .pytype/
 
 # Cython debug symbols
-<<<<<<< HEAD
 cython_debug/
-=======
-cython_debug/
->>>>>>> heroku
