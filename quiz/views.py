@@ -139,8 +139,16 @@ def player_quiz(request):
 
     # extract player info from dataset
     player = dataset["api"]["players"][0]
-
-    print(f"player is {player}")
+    colleges = ["Duke", "Kentucky", "Louisiana State University", "North Carolina"]
+    countries = ["USA", "Australia", "Lithuania"]
+    
+    # remove options if they are the same as the actual answer
+    if player['collegeName'] in colleges:
+        colleges.remove(player['collegeName'])
+    
+    if player['country'] in countries:
+        countries.remove(player['country'])
+        
 
     # define questions
     # TODO: exclude incorrect answers from picking the same value as the correct answer by chance
@@ -149,8 +157,8 @@ def player_quiz(request):
         "question": f"What country is {player['firstName']} from?",
         "answers": {
         "a": f"{player['country']}",
-        "b": f"",
-        "c": f""
+        "b": f"{countries.pop(random.randint(0, len(countries) - 1))}",
+        "c": f"{countries.pop(random.randint(0, len(countries) - 1))}"
         },
         "correctAnswer": "a"
     },
@@ -167,7 +175,7 @@ def player_quiz(request):
         "question": f"What number does {player['firstName']} wear?",
         "answers": {
         "a": f"{int(player['leagues']['standard']['jersey']) + 5}",
-        "b": f"{int(player['leagues']['standard']['jersey']) - 3}",
+        "b": f"{abs(int(player['leagues']['standard']['jersey']) - 3)}",
         "c": f"{player['leagues']['standard']['jersey']}"
         },
         "correctAnswer": "c"
@@ -193,9 +201,9 @@ def player_quiz(request):
     {
         "question": f"Where did {player['firstName']} play before the NBA?",
         "answers": {
-        "a": f"",
+        "a": f"{colleges.pop(random.randint(0, len(colleges) - 1))}",
         "b": f"{player['collegeName']}",
-        "c": f""
+        "c": f"{colleges.pop(random.randint(0, len(colleges) - 1))}"
         },
         "correctAnswer": "b"
     },
@@ -204,7 +212,7 @@ def player_quiz(request):
         "answers": {
         "a": f"{player['dateOfBirth'][0:4]}",
         "b": f"{int(player['dateOfBirth'][0:4]) + 2}",
-        "c": f"{int(player['dateOfBirth'][0:4] - 1)}"
+        "c": f"{int(player['dateOfBirth'][0:4]) - 1}"
         },
         "correctAnswer": "a"
     },
