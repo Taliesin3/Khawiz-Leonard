@@ -9,4 +9,5 @@ jobs:   # what should happen
     - name: Run Django unit tests  # description
       run: |
         pip3 install --user django
+        pip3 install --user python-dotenv
         python3 manage.py test
