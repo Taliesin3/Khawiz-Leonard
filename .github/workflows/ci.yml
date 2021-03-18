@@ -7,6 +7,6 @@ jobs:   # what should happen
     steps:
     - uses: actions/checkout@v2   # runs a github action to checkout the code and allow programs to operate on the code
     - name: Run Django unit tests  # description
-      run:  # shell instructions
+      run: |
         pip3 install --user django
         python3 manage.py test
