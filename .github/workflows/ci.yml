@@ -1,0 +1,12 @@
+name: Testing 
+on: push    # when should the jobs below run
+ 
+jobs:   # what should happen
+  test_project:   # any name you want
+    runs-on: ubuntu-latest    # which github virtual machine should the job run on
+    steps:
+    - uses: actions/checkout@v2   # runs a github action to checkout the code and allow programs to operate on the code
+    - name: Run Django unit tests  # description
+      run:  # shell instructions
+        pip3 install --user django
+        python manage.py test
