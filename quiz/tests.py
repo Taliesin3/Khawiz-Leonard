@@ -6,15 +6,16 @@ from .models import Team, Division, Conference
 class TeamTestCase(TestCase):
     
     def setUp(self):
-        # Creat Conferences.
+        """Set up dummy teams, conferences and divisions in order to run tests"""
+        # Create dummy Conferences.
         c1 = Conference.objects.create(name="West")
         c2 = Conference.objects.create(name="East")
         
-        # Create Divisions.
+        # Create dummy Divisions.
         d1 = Division.objects.create(name="newDiv1", conf_id=1)
         d2 = Division.objects.create(name="newDiv2", conf_id=2)
 
-        # Create teams.
+        # Create dummy teams.
         Team.objects.create(
             div=d1, 
             city="AAA", 
@@ -37,6 +38,7 @@ class TeamTestCase(TestCase):
         )
 
     def test_is_valid_team(self):
+        """Test dummy teams - AAA should be valid, BBB should be invalid"""
         t1 = Team.objects.get(shortName="AAA")
         self.assertTrue(t1.is_valid_team())
 
@@ -44,6 +46,7 @@ class TeamTestCase(TestCase):
         self.assertFalse(t2.is_valid_team())
 
     def test_index(self):
+        """Test the index route response is working and dummy teams are received"""
         c = Client()
         response = c.get("/")
         self.assertEqual(response.status_code, 200)
