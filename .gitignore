@@ -2,6 +2,7 @@
 .env
 Khawiz/.env
 quiz/.env
+localReadme.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
