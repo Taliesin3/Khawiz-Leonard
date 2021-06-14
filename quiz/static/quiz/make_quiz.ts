@@ -22,9 +22,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const submitButton = document.getElementById("submit")! as HTMLButtonElement;
 
   // When next is clicked
-  nextButton.onclick = function () {
+  nextButton.onclick = () => {
     // record the answer in the answer array
-    var userAnswer = $(`input[name=question${questionNumber}]:checked`).val();
+    let userAnswer = $(`input[name=question${questionNumber}]:checked`).val();
     answerArr[`${questionNumber}` - 1] = userAnswer;
     console.log(answerArr);
 
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   // When previous is clicked
-  prevButton.onclick = function () {
+  prevButton.onclick = () => {
     // display previous question and enable/disable relevant buttons
     questionNumber--;
     document.querySelectorAll(".quiz-question").forEach(function (div) {
@@ -55,13 +55,11 @@ document.addEventListener("DOMContentLoaded", function () {
     submitButton.disabled = true;
     nextButton.disabled = false;
 
-    if (questionNumber === 1) {
-      prevButton.disabled = true;
-    }
+    if (questionNumber === 1) prevButton.disabled = true;
   };
 
   // When submit is clicked, show results
-  submitButton.onclick = function () {
+  submitButton.onclick = () => {
     // disable previous button
     prevButton.disabled = true;
     submitButton.disabled = true;
